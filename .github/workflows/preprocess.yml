@@ -1,0 +1,30 @@
+name: Preprocessing Dataset
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        pip install pandas scikit-learn
+
+    - name: Run preprocessing script
+      run: python preprocessing/automate_Muhammad-Rizki-Yudistira.py
+
+    - name: Check output folder
+      run: ls -l preprocessing/dataset_preprocessed
+
