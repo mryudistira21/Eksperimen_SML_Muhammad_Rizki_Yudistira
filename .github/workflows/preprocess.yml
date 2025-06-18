@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repo
+    - name: Checkout actions/checkout@v3
       uses: actions/checkout@v3
 
     - name: Set up Python
@@ -22,8 +22,15 @@ jobs:
       run: |
         pip install pandas scikit-learn
 
-    - name: Run preprocessing script
+    - name: Run file automate_Muhammad-Rizki-Yudistira
       run: python preprocessing/automate_Muhammad-Rizki-Yudistira.py
+
+    - name: Upload preprocessed dataset
+      uses: actions/upload-artifact@v4
+      with:
+        name: preprocessed-dataset
+        path: preprocessing/dataset_preprocessed
+
 
     - name: Check output folder
       run: ls -l preprocessing/dataset_preprocessed
