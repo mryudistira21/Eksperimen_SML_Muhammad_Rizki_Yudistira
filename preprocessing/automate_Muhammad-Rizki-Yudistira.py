@@ -1,6 +1,5 @@
 import pandas as pd
 import os
-import shutil
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
@@ -49,19 +48,9 @@ def preprocess_adult_income(path_csv, test_size=0.2, random_state=42):
     y_train.to_csv(os.path.join(preprocessed_dir, "y_train.csv"), index=False)
     y_test.to_csv(os.path.join(preprocessed_dir, "y_test.csv"), index=False)
 
-    print("✅ Dataset disimpan ke folder preprocessing.")
-
-    # Sekaligus salin ke folder Membangun_model/dataset_preprocessing
-    model_dir = r"C:\Users\GL65 RTX2070\Jupyter\SMSML_Muhammad-Rizki-Yudistira\Membangun_model\dataset_preprocessing"
-    os.makedirs(model_dir, exist_ok=True)
-
-    for fname in ["X_train.csv", "X_test.csv", "y_train.csv", "y_test.csv"]:
-        src = os.path.join(preprocessed_dir, fname)
-        dst = os.path.join(model_dir, fname)
-        shutil.copy(src, dst)
-        print(f"📁 Disalin ke folder Membangun_model: {fname}")
+    print("Dataset disimpan ke folder preprocessing.")
 
 if __name__ == "__main__":
-    preprocess_adult_income(
-        path_csv=r"C:\Users\GL65 RTX2070\Jupyter\SMSML_Muhammad-Rizki-Yudistira\Eksperimen_SML_Muhammad_Rizki_Yudistira\dataset_raw\adult.csv"
-    )
+    repo_root = os.path.dirname(os.path.abspath(__file__))
+    dataset_path = os.path.join(repo_root, "..", "dataset_raw", "adult.csv")
+    preprocess_adult_income(path_csv=os.path.abspath(dataset_path))
